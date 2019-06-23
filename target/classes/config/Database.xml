@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myspring.user.dao.DatabaseMapper">
+
+		<select id="selectDatabaseList" resultType="Data">
+<![CDATA[
+SELECT DECODE(GR,'00',CD_NM,'01',CD_NM||'합계','총계') CD_NM
+      ,REGION_AREA
+      ,C0 
+       ||' ('||TO_CHAR(ROUND(C0*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C0,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C0,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C0,MX_RK),'01',NVL(AR_C0,MX_AP_RK),'11',NVL(PR_C0,MX_P_RK)) C0 
+      ,C1 
+       ||' ('||TO_CHAR(ROUND(C1*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C1,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C1,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C1,MX_RK),'01',NVL(AR_C1,MX_AP_RK),'11',NVL(PR_C1,MX_P_RK)) C1    
+      ,C2
+       ||' ('||TO_CHAR(ROUND(C2*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C2,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C2,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C2,MX_RK),'01',NVL(AR_C2,MX_AP_RK),'11',NVL(PR_C2,MX_P_RK)) C2        
+      ,C3
+       ||' ('||TO_CHAR(ROUND(C3*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C3,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C3,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C3,MX_RK),'01',NVL(AR_C3,MX_AP_RK),'11',NVL(PR_C3,MX_P_RK)) C3
+      ,C4 
+       ||' ('||TO_CHAR(ROUND(C4*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C4,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C4,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C4,MX_RK),'01',NVL(AR_C4,MX_AP_RK),'11',NVL(PR_C4,MX_P_RK)) C4  
+      ,C5 
+       ||' ('||TO_CHAR(ROUND(C5*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C5,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C5,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C5,MX_RK),'01',NVL(AR_C5,MX_AP_RK),'11',NVL(PR_C5,MX_P_RK)) C5 
+      ,C6 
+       ||' ('||TO_CHAR(ROUND(C6*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C6,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C6,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C6,MX_RK),'01',NVL(AR_C6,MX_AP_RK),'11',NVL(PR_C6,MX_P_RK)) C6
+      ,C7 
+       ||' ('||TO_CHAR(ROUND(C7*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C7,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C7,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C7,MX_RK),'01',NVL(AR_C7,MX_AP_RK),'11',NVL(PR_C7,MX_P_RK)) C7       
+      ,C8
+       ||' ('||TO_CHAR(ROUND(C8*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C8,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C8,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C8,MX_RK),'01',NVL(AR_C8,MX_AP_RK),'11',NVL(PR_C8,MX_P_RK)) C8     
+      ,C9 
+       ||' ('||TO_CHAR(ROUND(C9*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C9,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C9,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C9,MX_RK),'01',NVL(AR_C9,MX_AP_RK),'11',NVL(PR_C9,MX_P_RK)) C9
+      ,TOT
+FROM (
+         SELECT MIN(CD_NM) CD_NM 
+              ,AREA_CD
+              ,REGION_AREA
+              ,NVL(SUM(DECODE(PROD_ID,'100000',SALE_CNT)),0) C0  
+              ,NVL(SUM(DECODE(PROD_ID,'100001',SALE_CNT)),0) C1  
+              ,NVL(SUM(DECODE(PROD_ID,'100002',SALE_CNT)),0) C2  
+              ,NVL(SUM(DECODE(PROD_ID,'100003',SALE_CNT)),0) C3  
+              ,NVL(SUM(DECODE(PROD_ID,'100004',SALE_CNT)),0) C4  
+              ,NVL(SUM(DECODE(PROD_ID,'100005',SALE_CNT)),0) C5  
+              ,NVL(SUM(DECODE(PROD_ID,'100006',SALE_CNT)),0) C6 
+              ,NVL(SUM(DECODE(PROD_ID,'100007',SALE_CNT)),0) C7     
+              ,NVL(SUM(DECODE(PROD_ID,'100008',SALE_CNT)),0) C8     
+              ,NVL(SUM(DECODE(PROD_ID,'100009',SALE_CNT)),0) C9
+              ,MIN(DECODE(PROD_ID,'100000',RK)) R_C0
+              ,MIN(DECODE(PROD_ID,'100001',RK)) R_C1
+              ,MIN(DECODE(PROD_ID,'100002',RK)) R_C2
+              ,MIN(DECODE(PROD_ID,'100003',RK)) R_C3
+              ,MIN(DECODE(PROD_ID,'100004',RK)) R_C4
+              ,MIN(DECODE(PROD_ID,'100005',RK)) R_C5
+              ,MIN(DECODE(PROD_ID,'100006',RK)) R_C6
+              ,MIN(DECODE(PROD_ID,'100007',RK)) R_C7
+              ,MIN(DECODE(PROD_ID,'100008',RK)) R_C8
+              ,MIN(DECODE(PROD_ID,'100009',RK)) R_C9                        
+              ,MIN(DECODE(PROD_ID,'100000',AP_RK)) AR_C0
+              ,MIN(DECODE(PROD_ID,'100001',AP_RK)) AR_C1
+              ,MIN(DECODE(PROD_ID,'100002',AP_RK)) AR_C2
+              ,MIN(DECODE(PROD_ID,'100003',AP_RK)) AR_C3
+              ,MIN(DECODE(PROD_ID,'100004',AP_RK)) AR_C4
+              ,MIN(DECODE(PROD_ID,'100005',AP_RK)) AR_C5
+              ,MIN(DECODE(PROD_ID,'100006',AP_RK)) AR_C6
+              ,MIN(DECODE(PROD_ID,'100007',AP_RK)) AR_C7
+              ,MIN(DECODE(PROD_ID,'100008',AP_RK)) AR_C8
+              ,MIN(DECODE(PROD_ID,'100009',AP_RK)) AR_C9
+              ,MIN(DECODE(PROD_ID,'100000',P_RK)) PR_C0
+              ,MIN(DECODE(PROD_ID,'100001',P_RK)) PR_C1
+              ,MIN(DECODE(PROD_ID,'100002',P_RK)) PR_C2
+              ,MIN(DECODE(PROD_ID,'100003',P_RK)) PR_C3
+              ,MIN(DECODE(PROD_ID,'100004',P_RK)) PR_C4
+              ,MIN(DECODE(PROD_ID,'100005',P_RK)) PR_C5
+              ,MIN(DECODE(PROD_ID,'100006',P_RK)) PR_C6
+              ,MIN(DECODE(PROD_ID,'100007',P_RK)) PR_C7
+              ,MIN(DECODE(PROD_ID,'100008',P_RK)) PR_C8
+              ,MIN(DECODE(PROD_ID,'100009',P_RK)) PR_C9
+              ,MAX(RK)+1 MX_RK
+              ,MAX(AP_RK)+1 MX_AP_RK
+              ,MAX(P_RK)+1 MX_P_RK
+              ,NVL(SUM(SALE_CNT),0) TOT 
+              ,GROUPING(AREA_CD)||GROUPING(REGION_AREA) GR
+        FROM (
+                SELECT  AREA_CD
+                       ,REGION_AREA
+                       ,PROD_ID
+                       ,SALE_CNT
+                       ,RK
+                       ,DENSE_RANK() OVER(PARTITION BY AREA_CD ORDER BY AP_RK DESC ) AP_RK     
+                       ,DENSE_RANK() OVER( ORDER BY P_RK DESC ) P_RK
+                FROM (
+                        SELECT AREA_CD
+                              ,REGION_AREA
+                              ,PROD_ID
+                              ,SUM(SALE_CNT) SALE_CNT
+                              ,DENSE_RANK() OVER( PARTITION BY  AREA_CD ,REGION_AREA ORDER BY SUM(SALE_CNT) DESC ) RK
+                              ,SUM(SUM(SALE_CNT)) OVER(PARTITION BY AREA_CD,PROD_ID) AP_RK                      
+                              ,SUM(SUM(SALE_CNT)) OVER(PARTITION BY PROD_ID) P_RK
+                        FROM SALE_TBL ]]><![CDATA[
+                        WHERE ROWNUM <= 1000
+                        GROUP BY AREA_CD
+                                ,REGION_AREA
+                                ,PROD_ID 
+                      )
+            ) TA, CD_TBL TB 
+        WHERE TA.AREA_CD = TB.CD_ID
+        AND   LENGTH(TB.CD_ID) = 2
+        GROUP BY ROLLUP(AREA_CD ,REGION_AREA)                
+  ) ]]>
+
+	</select>
+		<select id="selectOptionList" resultType="Data">
+SELECT DECODE(GR,'00',CD_NM,'01',CD_NM||'합계','총계') CD_NM
+      ,REGION_AREA
+      ,C0 
+       ||' ('||TO_CHAR(ROUND(C0*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C0,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C0,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C0,MX_RK),'01',NVL(AR_C0,MX_AP_RK),'11',NVL(PR_C0,MX_P_RK)) C0 
+      ,C1 
+       ||' ('||TO_CHAR(ROUND(C1*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C1,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C1,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C1,MX_RK),'01',NVL(AR_C1,MX_AP_RK),'11',NVL(PR_C1,MX_P_RK)) C1    
+      ,C2
+       ||' ('||TO_CHAR(ROUND(C2*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C2,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C2,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C2,MX_RK),'01',NVL(AR_C2,MX_AP_RK),'11',NVL(PR_C2,MX_P_RK)) C2        
+      ,C3
+       ||' ('||TO_CHAR(ROUND(C3*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C3,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C3,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C3,MX_RK),'01',NVL(AR_C3,MX_AP_RK),'11',NVL(PR_C3,MX_P_RK)) C3
+      ,C4 
+       ||' ('||TO_CHAR(ROUND(C4*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C4,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C4,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C4,MX_RK),'01',NVL(AR_C4,MX_AP_RK),'11',NVL(PR_C4,MX_P_RK)) C4  
+      ,C5 
+       ||' ('||TO_CHAR(ROUND(C5*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C5,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C5,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C5,MX_RK),'01',NVL(AR_C5,MX_AP_RK),'11',NVL(PR_C5,MX_P_RK)) C5 
+      ,C6 
+       ||' ('||TO_CHAR(ROUND(C6*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C6,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C6,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C6,MX_RK),'01',NVL(AR_C6,MX_AP_RK),'11',NVL(PR_C6,MX_P_RK)) C6
+      ,C7 
+       ||' ('||TO_CHAR(ROUND(C7*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C7,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C7,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C7,MX_RK),'01',NVL(AR_C7,MX_AP_RK),'11',NVL(PR_C7,MX_P_RK)) C7       
+      ,C8
+       ||' ('||TO_CHAR(ROUND(C8*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C8,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C8,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C8,MX_RK),'01',NVL(AR_C8,MX_AP_RK),'11',NVL(PR_C8,MX_P_RK)) C8     
+      ,C9 
+       ||' ('||TO_CHAR(ROUND(C9*100/TOT,2),'FM990.09')||' %)' 
+       ||DECODE(C9,GREATEST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▲')
+       ||DECODE(C9,LEAST(C0,C1,C2,C3,C4,C5,C6,C7,C8,C9),'▼')
+       ||' *'||DECODE(GR,'00',NVL(R_C9,MX_RK),'01',NVL(AR_C9,MX_AP_RK),'11',NVL(PR_C9,MX_P_RK)) C9
+      ,TOT
+FROM (
+         SELECT MIN(CD_NM) CD_NM 
+              ,AREA_CD
+              ,REGION_AREA
+              ,NVL(SUM(DECODE(PROD_ID,'100000',SALE_CNT)),0) C0  
+              ,NVL(SUM(DECODE(PROD_ID,'100001',SALE_CNT)),0) C1  
+              ,NVL(SUM(DECODE(PROD_ID,'100002',SALE_CNT)),0) C2  
+              ,NVL(SUM(DECODE(PROD_ID,'100003',SALE_CNT)),0) C3  
+              ,NVL(SUM(DECODE(PROD_ID,'100004',SALE_CNT)),0) C4  
+              ,NVL(SUM(DECODE(PROD_ID,'100005',SALE_CNT)),0) C5  
+              ,NVL(SUM(DECODE(PROD_ID,'100006',SALE_CNT)),0) C6 
+              ,NVL(SUM(DECODE(PROD_ID,'100007',SALE_CNT)),0) C7     
+              ,NVL(SUM(DECODE(PROD_ID,'100008',SALE_CNT)),0) C8     
+              ,NVL(SUM(DECODE(PROD_ID,'100009',SALE_CNT)),0) C9
+              ,MIN(DECODE(PROD_ID,'100000',RK)) R_C0
+              ,MIN(DECODE(PROD_ID,'100001',RK)) R_C1
+              ,MIN(DECODE(PROD_ID,'100002',RK)) R_C2
+              ,MIN(DECODE(PROD_ID,'100003',RK)) R_C3
+              ,MIN(DECODE(PROD_ID,'100004',RK)) R_C4
+              ,MIN(DECODE(PROD_ID,'100005',RK)) R_C5
+              ,MIN(DECODE(PROD_ID,'100006',RK)) R_C6
+              ,MIN(DECODE(PROD_ID,'100007',RK)) R_C7
+              ,MIN(DECODE(PROD_ID,'100008',RK)) R_C8
+              ,MIN(DECODE(PROD_ID,'100009',RK)) R_C9                        
+              ,MIN(DECODE(PROD_ID,'100000',AP_RK)) AR_C0
+              ,MIN(DECODE(PROD_ID,'100001',AP_RK)) AR_C1
+              ,MIN(DECODE(PROD_ID,'100002',AP_RK)) AR_C2
+              ,MIN(DECODE(PROD_ID,'100003',AP_RK)) AR_C3
+              ,MIN(DECODE(PROD_ID,'100004',AP_RK)) AR_C4
+              ,MIN(DECODE(PROD_ID,'100005',AP_RK)) AR_C5
+              ,MIN(DECODE(PROD_ID,'100006',AP_RK)) AR_C6
+              ,MIN(DECODE(PROD_ID,'100007',AP_RK)) AR_C7
+              ,MIN(DECODE(PROD_ID,'100008',AP_RK)) AR_C8
+              ,MIN(DECODE(PROD_ID,'100009',AP_RK)) AR_C9
+              ,MIN(DECODE(PROD_ID,'100000',P_RK)) PR_C0
+              ,MIN(DECODE(PROD_ID,'100001',P_RK)) PR_C1
+              ,MIN(DECODE(PROD_ID,'100002',P_RK)) PR_C2
+              ,MIN(DECODE(PROD_ID,'100003',P_RK)) PR_C3
+              ,MIN(DECODE(PROD_ID,'100004',P_RK)) PR_C4
+              ,MIN(DECODE(PROD_ID,'100005',P_RK)) PR_C5
+              ,MIN(DECODE(PROD_ID,'100006',P_RK)) PR_C6
+              ,MIN(DECODE(PROD_ID,'100007',P_RK)) PR_C7
+              ,MIN(DECODE(PROD_ID,'100008',P_RK)) PR_C8
+              ,MIN(DECODE(PROD_ID,'100009',P_RK)) PR_C9
+              ,MAX(RK)+1 MX_RK
+              ,MAX(AP_RK)+1 MX_AP_RK
+              ,MAX(P_RK)+1 MX_P_RK
+              ,NVL(SUM(SALE_CNT),0) TOT 
+              ,GROUPING(AREA_CD)||GROUPING(REGION_AREA) GR
+        FROM (
+                SELECT  AREA_CD
+                       ,REGION_AREA
+                       ,PROD_ID
+                       ,SALE_CNT
+                       ,RK
+                       ,DENSE_RANK() OVER(PARTITION BY AREA_CD ORDER BY AP_RK DESC ) AP_RK     
+                       ,DENSE_RANK() OVER( ORDER BY P_RK DESC ) P_RK
+                FROM (
+                        SELECT AREA_CD
+                              ,REGION_AREA
+                              ,PROD_ID
+                              ,SUM(SALE_CNT) SALE_CNT
+                              ,DENSE_RANK() OVER( PARTITION BY  AREA_CD ,REGION_AREA ORDER BY SUM(SALE_CNT) DESC ) RK
+                              ,SUM(SUM(SALE_CNT)) OVER(PARTITION BY AREA_CD,PROD_ID) AP_RK                      
+                              ,SUM(SUM(SALE_CNT)) OVER(PARTITION BY PROD_ID) P_RK
+                        FROM SALE_TBL 
+                        WHERE ROWNUM <![CDATA[<]]>= #{param13}
+                        AND AREA_CD = NVL(#{param1,jdbcType=VARCHAR},AREA_CD)
+                        GROUP BY AREA_CD
+                                ,REGION_AREA
+                                ,PROD_ID 
+                      )
+            ) TA, CD_TBL TB 
+        WHERE TA.AREA_CD = TB.CD_ID
+        AND   LENGTH(TB.CD_ID) = 2 
+        GROUP BY ROLLUP(AREA_CD ,REGION_AREA)                
+  )
+  WHERE GR = NVL(#{param2,jdbcType=VARCHAR},GR)
+  ORDER BY decode(AREA_CD,10,#{param3},20,#{param4},30,#{param5},40,#{param6},50,#{param7},60,#{param8},70,#{param9},80,#{param10},90,#{param11})
+            ,DECODE(#{param12,jdbcType=VARCHAR},'F',-1,1)*GR
+            ,REGION_AREA
+</select>
+</mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
