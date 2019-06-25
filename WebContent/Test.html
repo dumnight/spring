@@ -9,6 +9,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" >
+
 	$(function(){
 		databaseList();
 		cnT();
@@ -61,8 +62,9 @@
 			.appendTo('tbody');
 		});//each
 	}//userListResult
-	
+
 	//사용자 조회 요청
+	
 	function cnT() {
 		//조회 버튼 클릭
 		$('body').on('click','#btnSearch',function(){
@@ -78,7 +80,8 @@
 			var areacode8 = $("#areacode8").val();
 			var areacode9 = $("#areacode9").val();
 			var orderdata = $("input:radio[name='orderdata']:checked").val();
-			var cntdata = $("#cnt").val(); 
+			var cntdata = $("#cnt").val();
+			var startTime = new Date();
 			$.ajax({
 				url:'database/'+ selectlist + '/' + datagr + '/' 
 				+ areacode1 + '/' + areacode2 + '/' + areacode3 + '/' 
@@ -91,33 +94,52 @@
 				error:function(xhr,status,msg){
 					alert("상태값 :" + status + " Http에러메시지 :"+msg);
 				},
-				success:cnTResult
+				//success:cnTResult // 2. 왜냐면 니가 이렇게 써놨기때문이지...
+				success: function(xhr) {
+					// 1. 이게 Ajax가 Success하면 실행되는 펑션임 
+					console.log(xhr.data);
+					var endTime = new Date();
+					// a. 근데 문제는 위의 Ajax 시작 부분이랑 여기랑 연결할 방법이 없다는것이야! 
+					$("tbody").empty();
+					$.each(xhr.data,function(idx,item){
+						$('<tr>')
+						.append($('<td>').html(item.cd_nm))
+						.append($('<td>').html(item.region_area))
+						.append($('<td>').html(item.c0))
+						.append($('<td>').html(item.c1))
+						.append($('<td>').html(item.c2))
+						.append($('<td>').html(item.c3))
+						.append($('<td>').html(item.c4))
+						.append($('<td>').html(item.c5))
+						.append($('<td>').html(item.c6))
+						.append($('<td>').html(item.c7))
+						.append($('<td>').html(item.c8))
+						.append($('<td>').html(item.c9))
+						.append($('<td>').html(item.tot))
+						.appendTo('tbody');
+						var sq = (item.c0.indexOf("▼")!== -1);
+						console.log(sq);
+						
+/* 						var tde = document.getElementsByName('c0');
+						for (let i = 0; i < tde.length; i++) {
+						 	if(item.c0.indexOf("▼")!== -1){
+								tde[i].style.color = 'red';
+								console.log(item.c0.indexOf("▼")!== -1);
+							} 
+						}  */
+					});
+					
+					//$("#time").val(xhr.time);	// 4. 그렇기때문에 여기서 xhr에 time이라는 게 추가되어 있음.... 그래서 xhr.time을 #time에 value로 넣어준거야.
+					var time = endTime - startTime;
+					var secTime = time / 1000;
+					$("#time").val(secTime);
+				}
 			});
-		}); 
-	}
-	
-	function cnTResult(xhr) {
-		console.log(xhr.data);
-		$("tbody").empty();
-		$.each(xhr.data,function(idx,item){
-			$('<tr>')
-			.append($('<td>').html(item.cd_nm))
-			.append($('<td>').html(item.region_area))
-			.append($('<td>').html(item.c0))
-			.append($('<td>').html(item.c1))
-			.append($('<td>').html(item.c2))
-			.append($('<td>').html(item.c3))
-			.append($('<td>').html(item.c4))
-			.append($('<td>').html(item.c5))
-			.append($('<td>').html(item.c6))
-			.append($('<td>').html(item.c7))
-			.append($('<td>').html(item.c8))
-			.append($('<td>').html(item.c9))
-			.append($('<td>').html(item.tot))
-			.appendTo('tbody');
-		});//each
-	}//userListResult
 
+		}); 
+		
+	}
+		
 </script>
 </head>
 <body>
@@ -168,7 +190,7 @@
 </div>		
 <hr/>		
 <div class="container">	
-	<input style="height: 80opx; width: 150px; background-color:yellow;  font-size: 15px" id="totalt" type="text" value="" readonly="readonly">
+	<input style="height: 80opx; width: 150px; background-color:yellow; font-size: 15px" id="time" type="text" value="" readonly="readonly">
 	<table class="table text-center">
 		<thead>
 		<tr>
@@ -190,29 +212,5 @@
 		<tbody></tbody>
 	</table>
 </div>	
-<script>
-var ntime = window.performance.timing;
-//var items = ${listChart}
-var total = ntime.unloadEventStart - ntime.navigationStart; //전체 소요시간
-
-var total2 = ntime.unloadEventEnd -ntime.navigationStart
-
-
-var redirect = ntime.redirectEnd - ntime.redirectStart; // 동일 origin에서의 redirect 시간
-var cache = ntime.domainLookupStart - ntime.fetchStart; // cache 시간
-var dnslookup = ntime.domainLookupEnd - ntime.domainLookupStart; //DNS Lookup 시간
-var connect = ntime.connectEnd - ntime.connectStart; // 웹서버 연결 시간
-var request = ntime.responseStart - ntime.requestStart; // 요청 소요 시간
-var response = ntime.responseEnd - ntime.responseStart; // 응답 데이터를 모두 받은 시간
-var dom = ntime.domComplete - ntime.domLoading; // DOM객체 생성 시간 *******************
-var load = ntime.loadEventEnd - ntime.loadEventStart; // 브라우저의 Load 이벤트 실행시간
-var pageEnd = ntime.loadEventEnd - ntime.responseEnd; //  서버에서 페이지를 받고 페이지를 로드하는데 걸린 시간
-var networkDelay = ntime.responseEnd - ntime.fetchStart; //  네트워크 지연 시간
-
-$(document).ready(function() {
-	document.getElementById('totalt').value ="경과 시간 : " + Math.floor(total/1000) + "  SEC";
-	console.log(total);
-});
-</script>
 </body>
 </html>

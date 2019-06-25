@@ -23,6 +23,7 @@ public class PerformanceTraceAdvice {
 				System.out.println(signatureString + "종료");
 				System.out.println(signatureString + "실행 시간 : " +
 				(finish - start) +" ms");
+				
 			}
 			
 		}
